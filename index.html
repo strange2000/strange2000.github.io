@@ -122,15 +122,17 @@
 
       <article class="card">
         <div class="body">
-          <h3>dsh-repro <code>复现材料</code></h3>
+          <h3>dsh-repro <code>21 条索引 · 6 套材料</code></h3>
           <p>
-            报上游 issue 时不只描述现象：每份材料配只读取证脚本（真实数据库、日志、安装目录）、
-            可重跑的对照实验，以及最小修法建议。全部零依赖，脚本自带 <code>--selftest</code>。
+            报上游 issue 时不只描述现象：材料配只读取证脚本（真实数据库、日志、安装目录）、
+            可重跑的对照实验，以及最小修法建议。零依赖，脚本自带 <code>--selftest</code> ——
+            先用「缺陷版」与「修复后」的合成源码证明判定器分得开，再给结论。
           </p>
           <ul class="facts">
-            <li>0001 mneme 蒸馏解析失败后无限重试同一窗口</li>
-            <li>0002 dsh-our-free-model 应用内升级每次回滚</li>
-            <li>0003 dsh-bili-scroll 桌面版装完即不可用的三处 bug</li>
+            <li>slow-stack/mneme · 8 条 —— 保留期审计器、T1 入口审计器、取证脚本 + 三臂对照</li>
+            <li>c1overzz/dsh-bili-scroll · 5 条 —— 8 项判定的只读审计器</li>
+            <li>settings.section 共享 id 冲突 · 3 条 —— 插件注册扫描器</li>
+            <li>dsh-desktop / dsh-ntr / our-free-model · 5 条 —— 升级激活审计器</li>
           </ul>
           <p style="margin:16px 0 0"><a class="go" href="https://github.com/strange2000/dsh-repro">查看报告与脚本 →</a></p>
         </div>

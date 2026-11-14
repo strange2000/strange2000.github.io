@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <title>陌生壬 · strange2000</title>
 <meta name="description" content="撞到 bug 就查到底：从日志、数据库、二进制里取证，把能跑的证据写清楚，再报给上游。">
 <meta property="og:type" content="website">
@@ -15,7 +18,14 @@
   :root{
     --bg:#0d1117; --panel:#161b22; --line:#21262d; --line-hi:#30363d;
     --fg:#e6edf3; --dim:#9198a1; --accent:#2f81f7; --ok:#3fb950; --warn:#d29922;
+    /* 主题补充色：亮色主题只覆盖这些，正文里不再写死色值 */
+    --fg-soft:#c9d1d9; --fg-strong:#ffffff; --body-text:#b6bec9; --mono-dim:#9aa4b0;
+    --btn-hover-bg:#1c232c; --btn-hover-line:#4b545e;
+    --accent-weak:rgba(47,129,247,.14); --accent-line:rgba(47,129,247,.45); --accent-ink:#a5c9ff;
+    --badge-bg:rgba(47,129,247,.12); --badge-line:rgba(47,129,247,.32);
+    --glow-ink:rgba(47,129,247,.10); --card-hover-line:#3d444d;
     --mono:ui-monospace,"Cascadia Code",Consolas,"SF Mono",Menlo,monospace;
+    color-scheme:dark;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -28,14 +38,14 @@
   .wrap{max-width:860px; margin:0 auto; padding:0 24px}
   .glow{
     position:absolute; inset:0 0 auto 0; height:340px; pointer-events:none; z-index:-1;
-    background:radial-gradient(60% 100% at 50% 0%, rgba(47,129,247,.10), transparent 70%);
+    background:radial-gradient(60% 100% at 50% 0%, var(--glow-ink), transparent 70%);
   }
   header{padding:84px 0 40px}
   .eyebrow{font:600 12px/1 var(--mono); letter-spacing:.14em; color:var(--dim); text-transform:uppercase}
   h1{font-size:44px; line-height:1.15; margin:14px 0 6px; letter-spacing:-.02em}
   h1 .en{font:400 18px/1 var(--mono); color:var(--dim); margin-left:12px; letter-spacing:0}
-  .lede{font-size:18px; color:#c9d1d9; margin:18px 0 0; max-width:640px}
-  .lede strong{color:#fff; font-weight:600}
+  .lede{font-size:18px; color:var(--fg-soft); margin:18px 0 0; max-width:640px}
+  .lede strong{color:var(--fg-strong); font-weight:600}
   .meta{margin-top:22px; font:13px/1.9 var(--mono); color:var(--dim)}
   .meta span{margin-right:18px; white-space:nowrap}
   .links{margin-top:26px; display:flex; flex-wrap:wrap; gap:10px}
@@ -43,47 +53,62 @@
     display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:8px;
     border:1px solid var(--line-hi); background:var(--panel); color:var(--fg); font-size:14px;
   }
-  .btn:hover{border-color:#4b545e; text-decoration:none; background:#1c232c}
-  .btn.primary{border-color:rgba(47,129,247,.45); background:rgba(47,129,247,.14); color:#a5c9ff}
+  .btn:hover{border-color:var(--btn-hover-line); text-decoration:none; background:var(--btn-hover-bg)}
+  .btn.primary{border-color:var(--accent-line); background:var(--accent-weak); color:var(--accent-ink)}
   section{padding:38px 0; border-top:1px solid var(--line)}
   h2{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin:0 0 22px}
   ol.disc{list-style:none; counter-reset:d; margin:0; padding:0; display:grid; gap:16px}
-  ol.disc li{counter-increment:d; position:relative; padding-left:44px; color:#c9d1d9}
+  ol.disc li{counter-increment:d; position:relative; padding-left:44px; color:var(--fg-soft)}
   ol.disc li::before{
     content:counter(d); position:absolute; left:0; top:1px;
     width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
     font:600 13px/1 var(--mono); color:var(--accent);
-    background:rgba(47,129,247,.12); border:1px solid rgba(47,129,247,.32);
+    background:var(--badge-bg); border:1px solid var(--badge-line);
   }
-  ol.disc b{color:#fff; font-weight:600}
+  ol.disc b{color:var(--fg-strong); font-weight:600}
   .cards{display:grid; gap:18px}
   .card{
     border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--panel);
     transition:border-color .18s, transform .18s;
   }
-  .card:hover{border-color:#3d444d; transform:translateY(-1px)}
+  .card:hover{border-color:var(--card-hover-line); transform:translateY(-1px)}
   .card .thumb{display:block; border-bottom:1px solid var(--line)}
   .card .thumb img{display:block; width:100%; height:auto; aspect-ratio:2/1; object-fit:cover}
   .card .body{padding:20px 22px 22px}
   .card h3{margin:0 0 8px; font-size:19px; letter-spacing:-.01em}
   .card h3 code{font:500 13px/1 var(--mono); color:var(--dim); margin-left:8px; letter-spacing:0}
-  .card p{margin:0 0 14px; color:#b6bec9; font-size:15px}
+  .card p{margin:0 0 14px; color:var(--body-text); font-size:15px}
   .tags{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px}
   .tag{
     font:12px/1 var(--mono); color:var(--dim); padding:5px 9px;
     border:1px solid var(--line-hi); border-radius:999px;
   }
-  .facts{margin:0; padding:0; list-style:none; font:13px/1.9 var(--mono); color:#9aa4b0}
+  .facts{margin:0; padding:0; list-style:none; font:13px/1.9 var(--mono); color:var(--mono-dim)}
   .facts li::before{content:"· "; color:var(--warn)}
   .go{font:500 14px/1 var(--mono); color:var(--accent)}
   footer{border-top:1px solid var(--line); padding:30px 0 56px; color:var(--dim); font:13px/1.9 var(--mono)}
-  footer a{color:#9aa4b0}
+  footer a{color:var(--mono-dim)}
   @media (max-width:640px){
     header{padding:56px 0 28px}
     h1{font-size:32px}
     h1 .en{display:block; margin:8px 0 0}
     .lede{font-size:16px}
     .wrap{padding:0 18px}
+  }
+  /* 跟随系统亮暗：只读 prefers-color-scheme，无 JS、无开关、无统计 */
+  @media (prefers-color-scheme: light){
+    :root{
+      color-scheme:light;
+      --bg:#ffffff; --panel:#f6f8fa; --line:#d8dee4; --line-hi:#d0d7de;
+      --fg:#1f2328; --dim:#59636e; --accent:#0969da; --ok:#1a7f37; --warn:#9a6700;
+      --fg-soft:#1f2328; --fg-strong:#000000; --body-text:#3d444d; --mono-dim:#57606a;
+      --btn-hover-bg:#f3f4f6; --btn-hover-line:#8c959f;
+      --accent-weak:rgba(9,105,218,.10); --accent-line:rgba(9,105,218,.40); --accent-ink:#0550ae;
+      --badge-bg:rgba(9,105,218,.10); --badge-line:rgba(9,105,218,.35);
+      --glow-ink:rgba(9,105,218,.07); --card-hover-line:#afb8c1;
+    }
+    /* 截图是深色底的，亮色下补一圈描边，免得糊进背景 */
+    .card .thumb img{outline:1px solid var(--line); outline-offset:-1px}
   }
 </style>
 </head>
@@ -192,14 +217,14 @@
 
   <section>
     <h2>零碎</h2>
-    <p style="margin:0; color:#b6bec9">
+    <p style="margin:0; color:var(--body-text)">
       <a href="https://github.com/strange2000/bark-icons">bark-icons</a> —— 512×512 的 Bark 推送图标，可直接用 <code>icon</code> 参数引用。
     </p>
   </section>
 
   <footer>
     © 2026 陌生壬 · 各项目授权见对应仓库（多为 MIT）<br>
-    本页是单文件静态页，无 JS、无外链资源、无统计。<a href="https://github.com/strange2000/strange2000.github.io">源文件</a>
+    本页是单文件静态页，无 JS、无外链资源、无统计；配色跟随系统亮暗。<a href="https://github.com/strange2000/strange2000.github.io">源文件</a>
   </footer>
 </div>
 </body>
